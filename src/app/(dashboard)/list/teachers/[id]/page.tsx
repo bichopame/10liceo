@@ -141,11 +141,21 @@ const SingleTeacherPage = () => {
       <div className="bg-white p-4 rounded-md">
         <h1 className="text-xl font-semibold">Atajos</h1>
         <div className="mt-4 flex gap-4 flex-wrap text-xs text-gray-500">
-          <Link className="p-3 rounded-md bg-lime-300" href="/">Clases</Link>
-          <Link className="p-3 rounded-md bg-teal-300" href="/">Estudiantes</Link>
-          <Link className="p-3 rounded-md bg-orange-300" href="/">Lecciones</Link>
-          <Link className="p-3 rounded-md bg-yellow-300" href="/">Examenes</Link>
-          <Link className="p-3 rounded-md bg-green-300" href="/">Asistencia</Link>
+          <Link className="p-3 rounded-md bg-lime-300" href={`/list/classes?superviseId=${"teacher2"}`}>
+          Clases
+          </Link>
+          <Link className="p-3 rounded-md bg-teal-300" href={`/list/students?teacherId=${"teacher2"}`}>
+          Estudiantes
+          </Link>
+          <Link className="p-3 rounded-md bg-orange-300" href={`/list/lessons?teacherId=${"teacher2"}`}>
+          Lecciones
+          </Link>
+          <Link className="p-3 rounded-md bg-yellow-300" href={`/list/exams?teacherId=${"teacher2"}`}>
+          Examenes
+          </Link>
+          <Link className="p-3 rounded-md bg-green-300" href={`/list/assignments?teacherId=${"teacher2"}`}>
+          Asistencia
+          </Link>
         </div>
 
       </div>
