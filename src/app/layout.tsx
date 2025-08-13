@@ -7,10 +7,9 @@ import { ClerkProvider } from "@clerk/nextjs";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Liceo Valle Hermoso",
-  description: "School Management System del Liceo Valle Hermoso",
+  title: "Dashboard LBCEVH",
+  description: "School Management System",
 };
-
 
 export default function RootLayout({
   children,
@@ -19,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="es">
         <body className={inter.className}>{children}</body>
       </html>
     </ClerkProvider>
