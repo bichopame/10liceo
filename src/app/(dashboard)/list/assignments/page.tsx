@@ -1,3 +1,4 @@
+import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
@@ -5,7 +6,8 @@ import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import { Assignment, Class, Prisma, Subject, Teacher } from "@prisma/client";
 import Image from "next/image";
-import Link from "next/link";
+import { auth } from "@clerk/nextjs/server";
+import { currentUserId, role } from "@/lib/utils";
 
 
 
@@ -36,11 +38,15 @@ const columns =[
     accessor:"dueDate",
     className:"hidden md:table-cell",
   },
-  {
-    header:"Acción",
-    accessor:"action",
-  },
-];
+  ...(role === "admin" || role === "teacher"
+      ? [
+          {
+            header: "Actions",
+            accessor: "action",
+          },
+        ]
+      : []),
+  ];
 
 
   
@@ -54,19 +60,11 @@ const columns =[
       
       <td>
         <div className="flex items-center gap-2">
-          {role === "admin" 
-          }
-
-
-          <Link href={`/list/teachers/${item.id}`}>
-            <button className="w-7 h-7 flex items-center justify-center rounded-full bg-[#A7E0FF]">
-              <Image src="/edit.png" alt="" width={16} height={16}/>
-            </button>
-          </Link>
-            {role === "admin" &&(
-              <button className="w-7 h-7 flex items-center justify-center rounded-full bg-[#A7E0FF]">
-              <Image src="/delete.png" alt="" width={16} height={16}/>
-            </button>
+          {(role === "admin" || role === "teacher") && (
+            <>
+              <FormModal table="assignment" type="update" data={item} />
+              <FormModal table="assignment" type="delete" id={item.id} />
+            </>        
             )}
         </div>
       </td>
@@ -87,23 +85,21 @@ const AssignmentListPage = async ({
 
   const query: Prisma.AssignmentWhereInput = {};
 
+  query.lesson = {};
+
   if (queryParams) {
     for (const [key, value] of Object.entries(queryParams)) {
       if (value !== undefined) {
         switch (key) {
           case "classId":
-            query.lesson = { classId: parseInt(value)};
+            query.lesson.classId = parseInt(value);
             break;
           case "teacherId":
-            query.lesson = {
-              teacherId: value,
-            };
+            query.lesson.teacherId = value;
             break;
           case "search":
-            query.lesson = {
-              subject:{
+            query.lesson.subject = {
                 name: { contains:value, mode: "insensitive"}
-              }
             };
             break;
             default:
@@ -112,6 +108,37 @@ const AssignmentListPage = async ({
       }
     }
   }
+
+  // ROLE CONDITIONS
+
+  switch (role) {
+    case "admin":
+      break;
+    case "teacher":
+      query.lesson.teacherId = currentUserId!;
+      break;
+    case "student":
+      query.lesson.class = {
+        students: {
+          some: {
+            id: currentUserId!,
+          },
+        },
+      };
+      break;
+    case "parent":
+      query.lesson.class = {
+        students: {
+          some: {
+            parentId: currentUserId!,
+          },
+        },
+      };
+      break;
+    default:
+      break;
+  }
+
 
   const [data, count] = await prisma.$transaction([
     prisma.assignment.findMany({
@@ -145,11 +172,10 @@ const AssignmentListPage = async ({
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-[#A7E0FF]">
               <Image src="/sort.png" alt="" width={14} height={14}/>
             </button>
-            {role === "admin" && (
-              <button className="w-8 h-8 flex items-center justify-center rounded-full bg-[#A7E0FF]">
-                <Image src="/plus.png" alt="" width={14} height={14}/>
-              </button>
-            )}
+              {role === "admin" ||
+              (role === "teacher" && (
+                <FormModal table="assignment" type="create" />
+              ))}
           </div>
         </div>
       </div>

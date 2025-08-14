@@ -2,9 +2,9 @@ import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { classesData, role } from "@/lib/data";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
+import { role } from "@/lib/utils";
 import { Class, Prisma, Teacher } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,10 +31,14 @@ const columns =[
     accessor:"supervisor",
     className:"hidden md:table-cell",
   },
-  {
-    header:"Acción",
-    accessor:"action",
-  },
+  ...(role === "admin"
+    ? [
+        {
+          header: "Actions",
+          accessor: "action",
+        },
+      ]
+    : []),
 ];
 
 const renderRow =(item:ClassList)=>(
@@ -101,10 +105,6 @@ const ClasseListPage = async ({
   ]);
   
   
-
-
-
-
   return (
     <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
       {/*ARRIBA*/}
