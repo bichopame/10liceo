@@ -1,12 +1,13 @@
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { assignmentsData, role } from "@/lib/data";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import { Assignment, Class, Prisma, Subject, Teacher } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+
+
 
 type AssignmentList = Assignment & {
   lesson:{
@@ -50,8 +51,13 @@ const columns =[
       <td>{item.lesson.class.name}</td>
       <td className="hidden md:table-cell">{item.lesson.teacher.name}</td>
       <td className="hidden md:table-cell">{new Intl.DateTimeFormat("es-CL").format(item.dueDate)}</td>
+      
       <td>
         <div className="flex items-center gap-2">
+          {role === "admin" 
+          }
+
+
           <Link href={`/list/teachers/${item.id}`}>
             <button className="w-7 h-7 flex items-center justify-center rounded-full bg-[#A7E0FF]">
               <Image src="/edit.png" alt="" width={16} height={16}/>
