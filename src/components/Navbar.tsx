@@ -1,6 +1,7 @@
 import { UserButton } from "@clerk/nextjs"
 import { currentUser } from "@clerk/nextjs/server"
 import Image from "next/image"
+import LangSwitch from "./LangSwitch";
 
 const Navbar = async() => {
   const user = await currentUser();
@@ -30,6 +31,7 @@ const Navbar = async() => {
         </div>
         {/*<Image src="/avatar.png" alt="" width={36} height={36} className="rounded-full"/>*/}
         <UserButton/>
+        <LangSwitch />
       </div>
     </div>
   )

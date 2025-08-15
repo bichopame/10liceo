@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { I18nProvider } from "@/i18n";
+import { cookies } from "next/headers"; 
 
 
 
@@ -17,10 +19,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+const cookieLang = cookies().get("app_lang")?.value === "en" ? "en" : "es";
+
   return (
     <ClerkProvider>
-      <html lang="es">
-        <body className={inter.className}>{children}</body>
+      <html lang={cookieLang}>
+        <body className={inter.className}>
+          <I18nProvider initialLang={cookieLang}>
+          {children}
+          </I18nProvider>
+          </body>
       </html>
     </ClerkProvider>
   );
