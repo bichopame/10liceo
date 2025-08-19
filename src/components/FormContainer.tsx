@@ -20,8 +20,7 @@ export type FormContainerProps = {
   id?: number | string;
 };
 
-const FormContainer = async ({ table, type, data, id,}: FormContainerProps) => 
-{
+const FormContainer = async ({ table, type, data, id }: FormContainerProps) => {
   let relatedData = {};
 
   if (type !== "delete") {
@@ -41,16 +40,24 @@ const FormContainer = async ({ table, type, data, id,}: FormContainerProps) =>
         });
         relatedData = { teachers: classTeachers, grades: classGrades };
         break;
+        
 
-        default:
+      default:
         break;
     }
   }
 
   return (
     <div className="">
-      <FormModal table={table} type={type} data={data} id={id} relatedData= {relatedData}/></div>
-  )
-}
+      <FormModal
+        table={table}
+        type={type}
+        data={data}
+        id={id}
+        relatedData={relatedData}
+      />
+    </div>
+  );
+};
 
 export default FormContainer;
