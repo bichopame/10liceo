@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import { I18nProvider } from "@/i18n";
-import { cookies } from "next/headers"; 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 
@@ -20,16 +20,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-const cookieLang = cookies().get("app_lang")?.value === "en" ? "en" : "es";
-
   return (
     <ClerkProvider>
-      <html lang={cookieLang}>
+      <html lang="es">
         <body className={inter.className}>
-          <I18nProvider initialLang={cookieLang}>
-          {children}
-          </I18nProvider>
-          </body>
+          {children} <ToastContainer position="bottom-right" theme="dark"/></body>
       </html>
     </ClerkProvider>
   );

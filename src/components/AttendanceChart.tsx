@@ -15,7 +15,7 @@ import {
 const AttendanceChart = ({
   data,
 }:{
-  data:{name:string, present:number, adsent:number}[];
+  data: {name:string, present:number, adsent:number}[];
 }) => {
   return (
     /*GRAFICO DE BARRAS*/

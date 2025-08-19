@@ -7,7 +7,7 @@ import { ITEM_PER_PAGE } from "@/lib/settings";
 import { currentUserId, role } from "@/lib/utils";
 import { Class, Event, Prisma } from "@prisma/client";
 import Image from "next/image";
-import Link from "next/link";
+
 
 type EventList = Event & { class:Class
 
@@ -69,7 +69,7 @@ const columns =[
         <div className="flex items-center gap-2">
             {role === "admin" &&(
               <>
-                <FormModal table="event" type="update" data={item.id}/>
+                <FormModal table="event" type="update" data={item}/>
                 <FormModal table="event" type="delete" id={item.id}/>
               </>
             )}

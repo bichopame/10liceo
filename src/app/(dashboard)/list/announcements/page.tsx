@@ -45,7 +45,7 @@ const columns =[
         <div className="flex items-center gap-2">
             {role === "admin" &&(
               <>
-                <FormModal table="announcement" type="update" data={item.id}/>
+                <FormModal table="announcement" type="update" data={item}/>
                 <FormModal table="announcement" type="delete" id={item.id}/>
               </>  
             )}

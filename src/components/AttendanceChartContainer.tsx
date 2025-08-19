@@ -54,7 +54,7 @@ const AttendanceChartContainer = async () => {
   const data = daysOfWeek.map((day) => ({
     name: day,
     present: attendanceMap[day].present,
-    absent: attendanceMap[day].absent,
+    adsent: attendanceMap[day].absent,
   }));
 
   return (

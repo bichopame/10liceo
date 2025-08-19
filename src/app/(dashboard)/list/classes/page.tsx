@@ -1,4 +1,4 @@
-import FormModal from "@/components/FormModal";
+import FormContainer from "@/components/FormContainer";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
@@ -7,7 +7,6 @@ import { ITEM_PER_PAGE } from "@/lib/settings";
 import { role } from "@/lib/utils";
 import { Class, Prisma, Teacher } from "@prisma/client";
 import Image from "next/image";
-import Link from "next/link";
 
 type ClassList = Class & { supervisor:Teacher}
 
@@ -52,8 +51,8 @@ const renderRow =(item:ClassList)=>(
         <div className="flex items-center gap-2">
             {role === "admin" &&(
               <>
-                <FormModal table="class" type="update" data={item.id}/>
-                <FormModal table="class" type="delete" id={item.id}/>
+                <FormContainer table="class" type="update" data={item}/>
+                <FormContainer table="class" type="delete" id={item.id}/>
               </> 
             )}
         </div>
@@ -119,9 +118,9 @@ const ClasseListPage = async ({
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-[#A7E0FF]">
               <Image src="/sort.png" alt="" width={14} height={14}/>
             </button>
-            {role === "admin" && (
-              <FormModal table="class" type="create"/>
-            )}
+            {role === "admin" && 
+              <FormContainer table="class" type="create"/>
+            }
           </div>
         </div>
       </div>

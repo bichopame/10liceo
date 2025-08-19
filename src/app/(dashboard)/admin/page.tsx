@@ -17,8 +17,8 @@ const AdminPage = ({
         {/*TARJETA DE USUARIO*/}
         <div className="flex gap-4 justify-between flex-wrap">
           <UserCard type="admin" />
-          <UserCard type="student" />
           <UserCard type="teacher" />
+          <UserCard type="student" />
           <UserCard type="parent" />
         </div>
         {/* GRAFICOS MEDIO*/}

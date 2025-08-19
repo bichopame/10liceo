@@ -7,7 +7,7 @@ import { ITEM_PER_PAGE } from "@/lib/settings";
 import { currentUserId, role } from "@/lib/utils";
 import { Class, Exam, Prisma, Subject, Teacher } from "@prisma/client";
 import Image from "next/image";
-import Link from "next/link";
+
 
 type ExamList = Exam & {
   lesson: {
@@ -63,7 +63,7 @@ const renderRow = (item: ExamList) => (
       <div className="flex items-center gap-2">
         {(role === "admin" || role === "teacher") && (
           <>
-            <FormModal table="exam" type="update" data={item.id} />
+            <FormModal table="exam" type="update" data={item} />
             <FormModal table="exam" type="delete" id={item.id} />
           </>
         )}
