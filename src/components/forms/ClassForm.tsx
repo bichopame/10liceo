@@ -3,14 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import InputField from "../InputField";
-import {
-  classSchema,
-  ClassSchema,
-} from "@/lib/formValidationSchemas";
-import {
-  createClass,
-  updateClass,
-} from "@/lib/actions";
+import { classSchema, ClassSchema } from "@/lib/formValidationSchemas";
+import { createClass, updateClass } from "@/lib/actions";
 import { useFormState } from "react-dom";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { toast } from "react-toastify";
@@ -38,7 +32,7 @@ const ClassForm = ({
   // AFTER REACT 19 IT'LL BE USEACTIONSTATE
 
   const [state, formAction] = useFormState(
-    type === "create" ? createClass : updateClass,
+    type === "create" ? createClass : updateClass, 
     {
       success: false,
       error: false,
@@ -54,7 +48,7 @@ const ClassForm = ({
 
   useEffect(() => {
     if (state.success) {
-      toast(`Subject has been ${type === "create" ? "creada" : "actualizada"}!`);
+      toast(`! La clase a sido ${type === "create" ? "creada" : "actualizada"}!`);
       setOpen(false);
       router.refresh();
     }
@@ -65,7 +59,7 @@ const ClassForm = ({
   return (
     <form className="flex flex-col gap-8" onSubmit={onSubmit}>
       <h1 className="text-xl font-semibold">
-        {type === "create" ? "Crea una nueva clase" : "Actualiza la clase"}
+        {type === "create" ? "Crea una clase" : "Actualiza la clase"}
       </h1>
 
       <div className="flex justify-between flex-wrap gap-4">
@@ -129,7 +123,7 @@ const ClassForm = ({
               <option
                 value={grade.id}
                 key={grade.id}
-                selected={data && grade.id === data.gradeId}
+                selected= {data && grade.id === data.gradeId}
               >
                 {grade.level}
               </option>

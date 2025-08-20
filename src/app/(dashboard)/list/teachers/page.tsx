@@ -1,4 +1,4 @@
-import FormModal from "@/components/FormModal";
+import FormContainer from "@/components/FormContainer";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
@@ -7,11 +7,20 @@ import { Class, Prisma, Subject, Teacher } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { ITEM_PER_PAGE } from "@/lib/settings";
-import { role } from "@/lib/utils";
+import { auth } from "@clerk/nextjs/server";
 
-const columns = [
+type TeacherList = Teacher & { subjects: Subject[] } & { classes: Class[] };
+
+const TeacherListPage = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) => {
+  const { sessionClaims } = auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+  const columns = [
   {
-    header: "Info",
+    header: "Información",
     accessor: "info",
   },
   {
@@ -42,14 +51,13 @@ const columns = [
   ...(role === "admin"
       ? [
           {
-            header: "Actions",
+            header: "Acción",
             accessor: "action",
           },
         ]
       : []),
   ];
 
-type TeacherList = Teacher & { subjects: Subject[] } & { classes: Class[] };
 
 const renderRow = (item: TeacherList) => (
   <tr
@@ -89,18 +97,13 @@ const renderRow = (item: TeacherList) => (
           //<button className="w-7 h-7 flex items-center justify-center rounded-full bg-[#A7E0FF]">
           //<Image src="/delete.png" alt="" width={16} height={16}/>
           //</button>
-          <FormModal table="teacher" type="delete" id={item.id} />
+          <FormContainer table="teacher" type="delete" id={item.id} />
         )}
       </div>
     </td>
   </tr>
 );
 
-const TeacherListPage = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) => {
   const { page, ...queryParams } = searchParams;
 
   const p = page ? parseInt(page) : 1;
@@ -160,15 +163,11 @@ const TeacherListPage = async ({
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
             {role === "admin" && (
-              //<button className="w-8 h-8 flex items-center justify-center rounded-full bg-[#A7E0FF]">
-              //<Image src="/plus.png" alt="" width={14} height={14}/>
-              //</button>
-              <FormModal table="teacher" type="create" />
+              <FormContainer table="teacher" type="create" />
             )}
           </div>
         </div>
       </div>
-
       {/*LISTA*/}
       <Table columns={columns} renderRow={renderRow} data={data} />
       {/*PAGINACION*/}

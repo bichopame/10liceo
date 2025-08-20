@@ -48,7 +48,7 @@ const SubjectForm = ({
 
   useEffect(() => {
     if (state.success) {
-      toast(`La asignatura a sido ${type === "create" ? "creada" : "actualizada"}!`);
+      toast(`! La asignatura a sido ${type === "create" ? "creada" : "actualizada"} !`);
       setOpen(false);
       router.refresh();
     }
@@ -70,7 +70,7 @@ const SubjectForm = ({
           name="name"
           defaultValue={data?.name}
           register={register}
-          error={errors.name}
+          error={errors?.name}
         />
         {data && (
           <InputField
@@ -78,17 +78,17 @@ const SubjectForm = ({
             name="id"
             defaultValue={data?.id}
             register={register}
-            error={errors.id}
+            error={errors?.id}
             hidden
           />
         )}
         <div className="felx flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Profesor</label>
+          <label className="text-xs text-gray-500">Profesores</label>
           <select
             multiple
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
             {...register("teachers")}
-            defaultValue={data?.teacher}
+            defaultValue={data?.teachers}
           >
             {teachers.map(
               (teacher: { id: string; name: string; surname: string }) => (
