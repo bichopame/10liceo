@@ -27,13 +27,13 @@ const Announcements = async () => {
   return (
     <div className="bg-white p-4 rounded-md">
       <div className="flex items-center justify-between">
-        <h1 className="test-xl font-semibold">Anuncios</h1>
+        <h1 className="text-xl text-[#00194F] font-semibold my-4">Anuncios</h1>
         <span className=" text-xs text-gray-400">Ver todo</span>
       </div>
       <div className="flex flex-col gap-4 mt-4">
         {data[0] && <div className="bg-[#E9F7FF] rounded-md p-4">
           <div className=" flex items-center justify-between">
-            <h2 className="font-medium">{data[0].title}</h2>
+            <h2 className="font-medium text-[#00194F]">{data[0].title}</h2>
             <span className="text-xs text-gray-400 bg-white rounded-md px-1 py-1">
               {new Intl.DateTimeFormat("es-CL").format(data[0].date)}
             </span>
@@ -42,7 +42,7 @@ const Announcements = async () => {
         </div>}
         {data[1] &&<div className="bg-[#CEECFF] rounded-md p-4">
           <div className=" flex items-center justify-between">
-            <h2 className="font-medium">{data[1].title}</h2>
+            <h2 className="font-medium text-[#00194F]">{data[1].title}</h2>
             <span className="text-xs text-gray-400 bg-white rounded-md px-1 py-1">
               {new Intl.DateTimeFormat("es-CL").format(data[1].date)}
             </span>
@@ -51,7 +51,7 @@ const Announcements = async () => {
         </div>}
         {data[2] &&<div className="bg-[#A7E0FF] rounded-md p-4">
           <div className=" flex items-center justify-between">
-            <h2 className="font-medium">{data[2].title}</h2>
+            <h2 className="font-medium text-[#00194F]">{data[2].title}</h2>
             <span className="text-xs text-gray-400 bg-white rounded-md px-1 py-1">
               {new Intl.DateTimeFormat("es-CL").format(data[2].date)}
             </span>
