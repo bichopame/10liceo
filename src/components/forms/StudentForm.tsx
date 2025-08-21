@@ -8,15 +8,11 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   studentSchema,
   StudentSchema,
-  teacherSchema,
-  TeacherSchema,
 } from "@/lib/formValidationSchemas";
 import { useFormState } from "react-dom";
 import {
   createStudent,
-  createTeacher,
   updateStudent,
-  updateTeacher,
 } from "@/lib/actions";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -72,7 +68,7 @@ const StudentForm = ({
   return (
     <form className="flex flex-col gap-8" onSubmit={onSubmit}>
       <h1 className="text-xl font-semibold">
-        {type === "create" ? "Create a new student" : "Update the student"}
+        {type === "create" ? "Crea un nuevo estudiante" : "Actualiza un estudiante"}
       </h1>
       <span className="text-xs text-gray-400 font-medium">
         Información de autenticación
