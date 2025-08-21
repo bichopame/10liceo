@@ -54,14 +54,14 @@ const AttendanceChartContainer = async () => {
   const data = daysOfWeek.map((day) => ({
     name: day,
     present: attendanceMap[day].present,
-    adsent: attendanceMap[day].absent,
+    absent: attendanceMap[day].absent,
   }));
 
   return (
     <div className="bg-white rounded-lg p-4 h-full">
       <div className="flex justify-between items-center">
         {/*TITULO*/}
-        <h1 className="text-lg font-semibold">Asistencia</h1>
+        <h1 className="text-lg text-[#00194F] font-semibold">Asistencia</h1>
         <Image src="/moreDark.png" alt="" width={20} height={20} />
       </div>
       <AttendanceChart data={data}/>

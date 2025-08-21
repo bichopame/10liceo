@@ -1,4 +1,5 @@
 "use client"
+
 import Image from 'next/image';
 import { 
   BarChart, 
@@ -15,7 +16,7 @@ import {
 const AttendanceChart = ({
   data,
 }:{
-  data: {name:string, present:number, adsent:number}[];
+  data: {name:string, present:number, absent:number}[];
 }) => {
   return (
     /*GRAFICO DE BARRAS*/
@@ -31,13 +32,13 @@ const AttendanceChart = ({
             wrapperStyle={{paddingTop:"20px", paddingBottom:"40px"}}
           />
           <Bar 
-            dataKey="Ausentes" 
+            dataKey="present" 
             fill="#0037E6" 
             legendType='circle'
             radius={[10,10,0,0]}
           />
           <Bar 
-            dataKey="Presentes" 
+            dataKey="absent" 
             fill="#26B2FF" 
             legendType='circle'
             radius={[10,10,0,0]}
