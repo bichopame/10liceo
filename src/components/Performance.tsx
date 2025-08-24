@@ -30,7 +30,7 @@ const Performance = () => {
     </ResponsiveContainer>
     <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center'>
       <h1 className='text-3xl font-bold'>9.2</h1>
-      <p className='text-xs text-gray-400'>of 10 max LTS</p>
+      <p className='text-xs text-gray-400'>de 10 Pts. máx</p>
     </div>
     <h2 className='font-medium absolute bottom-16 left-0 right-0 m-auto text-center'>1° Semestre - 2° Semestre</h2>
     </div>

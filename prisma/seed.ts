@@ -64,7 +64,7 @@ async function main() {
         surname: `Apellidos-P${i}`,
         email: `profesor${i}@liceo.cl`,
         phone: `912345678${i}`,
-        address: `Calle#1234 ${i}`,
+        address: `Calle ${i}`,
         bloodType: "A+",
         sex: i % 2 === 0 ? UserSex.MALE : UserSex.FEMALE,
         subjects: { connect: [{ id: (i % 10) + 1 }] }, 
@@ -88,7 +88,7 @@ async function main() {
         endTime: new Date(new Date().setHours(new Date().getHours() + 3)), 
         subjectId: (i % 10) + 1, 
         classId: (i % 6) + 1, 
-        teacherId: `profesor${(i % 15) + 1}`, 
+        teacherId: `teacher${(i % 15) + 1}`, 
       },
     });
   }
@@ -103,7 +103,7 @@ async function main() {
         surname: `Apellido-A ${i}`,
         email: `apoderado${i}@familia.cl`,
         phone: `912345678${i}`,
-        address: `Address${i}`,
+        address: `Calle${i}`,
       },
     });
   }
@@ -118,7 +118,7 @@ async function main() {
         surname: `Apellido-E ${i}`,
         email: `estudiante${i}@liceo.cl`,
         phone: `912345678${i}`,
-        address: `Calle#1234${i}`,
+        address: `Calle${i}`,
         bloodType: "O-",
         sex: i % 2 === 0 ? UserSex.MALE : UserSex.FEMALE,
         parentId: `parentId${Math.ceil(i / 2) % 25 || 25}`, 
@@ -158,7 +158,7 @@ async function main() {
     await prisma.result.create({
       data: {
         score: 70, 
-        studentId: `estudiante${i}`, 
+        studentId: `student${i}`, 
         ...(i <= 5 ? { examId: i } : { assignmentId: i - 5 }), 
       },
     });
@@ -170,7 +170,7 @@ async function main() {
       data: {
         date: new Date(), 
         present: true, 
-        studentId: `estudiante${i}`, 
+        studentId: `student${i}`, 
         lessonId: (i % 30) + 1, 
       },
     });
