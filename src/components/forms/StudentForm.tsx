@@ -187,8 +187,8 @@ const StudentForm = ({
             {...register("sex")}
             defaultValue={data?.sex}
           >
-            <option value="MALE">Male</option>
-            <option value="FEMALE">Female</option>
+            <option value="MALE">Hombre</option>
+            <option value="FEMALE">Mujer</option>
           </select>
           {errors.sex?.message && (
             <p className="text-xs text-red-400">
@@ -248,7 +248,7 @@ const StudentForm = ({
         <span className="text-red-500">¡Algo salió mal! </span>
       )}
       <button type="submit" className="bg-blue-400 text-white p-2 rounded-md">
-        {type === "create" ? "Create" : "Update"}
+        {type === "create" ? "Crear" : "Actualizar"}
       </button>
     </form>
   );

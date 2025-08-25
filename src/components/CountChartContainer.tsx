@@ -6,7 +6,8 @@ const CountChartContainer = async () => {
   const data = await prisma.student.groupBy({
     by:["sex"],
     _count: true,
-  })
+  });
+
   const boys = data.find((d) => d.sex === "MALE")?._count || 0;
   const girls = data.find((d) => d.sex === "FEMALE")?._count || 0;
 
@@ -36,4 +37,4 @@ const CountChartContainer = async () => {
   );
 }; 
 
-export default CountChartContainer
+export default CountChartContainer;

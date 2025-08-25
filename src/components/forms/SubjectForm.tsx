@@ -59,9 +59,7 @@ const SubjectForm = ({
   return (
     <form className="flex flex-col gap-8" onSubmit={onSubmit}>
       <h1 className="text-xl font-semibold">
-        {type === "create"
-          ? "Crea una asignatura"
-          : "Actualiza una asignatura "}
+        {type === "create" ? "Crea una asignatura" : "Actualiza una asignatura "}
       </h1>
 
       <div className="flex justify-between flex-wrap gap-4">
@@ -98,7 +96,7 @@ const SubjectForm = ({
               )
             )}
           </select>
-          {errors?.teachers?.message && (
+          {errors.teachers?.message && (
             <p className="text-xs text-red-400">
               {errors.teachers.message.toString()}
             </p>

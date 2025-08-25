@@ -62,11 +62,7 @@ const SingleTeacherPage = async ({
               {teacher.name + " " + teacher.surname}
             </h1>
             {role === "admin" && (
-            <FormContainer
-              table="teacher"
-              type="update"
-              data={teacher}
-            />
+            <FormContainer table="teacher" type="update" data={teacher}/>
             )}
           </div>
           <p className="text-sm text-gray-600 p-1">

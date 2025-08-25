@@ -1,17 +1,25 @@
-import FormModal from "@/components/FormModal";
+import FormContainer from "@/components/FormContainer";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
-import { currentUserId, role } from "@/lib/utils";
 import { Class, Event, Prisma } from "@prisma/client";
 import Image from "next/image";
+import { auth } from "@clerk/nextjs/server";
 
 
-type EventList = Event & { class:Class
+type EventList = Event & { class: Class };
 
-  };
+const EventListPage = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) => {
+
+  const { userId, sessionClaims } = auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+  const currentUserId = userId;
 
 const columns =[
   {
@@ -40,7 +48,7 @@ const columns =[
   ...(role === "admin"
       ? [
           {
-            header: "Actions",
+            header: "Acción",
             accessor: "action",
           },
         ]
@@ -69,8 +77,8 @@ const columns =[
         <div className="flex items-center gap-2">
             {role === "admin" &&(
               <>
-                <FormModal table="event" type="update" data={item}/>
-                <FormModal table="event" type="delete" id={item.id}/>
+                <FormContainer table="event" type="update" data={item}/>
+                <FormContainer table="event" type="delete" id={item.id}/>
               </>
             )}
         </div>
@@ -78,11 +86,7 @@ const columns =[
     </tr>
   );
 
-const EventListPage = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) => {
+
   const { page, ...queryParams } = searchParams;
 
   const p = page ? parseInt(page) : 1;
@@ -150,7 +154,7 @@ const EventListPage = async ({
               <Image src="/sort.png" alt="" width={14} height={14}/>
             </button>
             {role === "admin" && (
-              <FormModal table="event" type="create"/>
+              <FormContainer table="event" type="create"/>
             )}
           </div>
         </div>

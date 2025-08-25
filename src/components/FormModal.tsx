@@ -21,7 +21,7 @@ const deleteActionMap = {
   teacher: deleteTeacher,
   student: deleteStudent,
   exam: deleteExam,
-// TODO: OTHER DELETE ACTIONS
+// TODO: OTROS ACCIONES DE DELETE
   parent: deleteSubject,
   lesson: deleteSubject,
   assignment: deleteSubject,
@@ -51,7 +51,7 @@ const ClassForm = dynamic(() => import("./forms/ClassForm"), {
 const ExamForm = dynamic(() => import("./forms/ExamForm"), {
   loading: () => <h1>Loading...</h1>,
 });
-// TODO: OTHER FORMS
+// TODO: OTROS FORMULARIOS
 
 const forms: {
   [key: string]: (
@@ -100,7 +100,7 @@ const forms: {
       setOpen={setOpen}
       relatedData={relatedData}
     />
-    // TODO OTHER LIST ITEMS
+    // TODO OTRAS LISTAS DE ITEMS
   ),
 };
 
@@ -131,7 +131,7 @@ const FormModal = ({
 
     useEffect(() => {
       if (state.success) {
-        toast(`${table} has been deleted!`);
+        toast(`¡ ${table} ha sido eliminado !`);
         setOpen(false);
         router.refresh();
       }
@@ -141,16 +141,16 @@ const FormModal = ({
       <form action={formAction} className="p-4 flex flex-col gap-4">
         <input type="text | number" name="id" value={id} hidden />
         <span className="text-center font-medium">
-          All data will be lost. Are you sure you want to delete this {table}?
+          Todos los datos se perderán. ¿Estás seguro de que quieres eliminar esto {table}?
         </span>
         <button className="bg-red-700 text-white py-2 px-4 rounded-md border-none w-max self-center">
-          Delete
+          Eliminar
         </button>
       </form>
     ) : type === "create" || type === "update" ? (
       forms[table](setOpen, type, data, relatedData)
     ) : (
-      "Form not found!"
+      "¡Formulario no encontrado!"
     );
   };
 

@@ -4,20 +4,25 @@ import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
-import { auth } from "@clerk/nextjs/server";
 import { Class, Prisma, Student } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
-const { userId, sessionClaims } = auth ();
-export const role = ( sessionClaims?.metadata as { role?: string })?.role;
-export const currentUserId = userId;
+import { auth } from "@clerk/nextjs/server";
 
 type StudentList = Student & { class: Class };
 
+const StudentListPage = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) => {
+  const { sessionClaims } = auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+
 const columns = [
   {
-    header: "Info",
+    header: "Informacón",
     accessor: "info",
   },
   {
@@ -43,7 +48,7 @@ const columns = [
   ...(role === "admin"
       ? [
           {
-            header: "Actions",
+            header: "Acción",
             accessor: "action",
           },
         ]
@@ -90,11 +95,7 @@ const renderRow = (item: StudentList) => (
   </tr>
 );
 
-const StudentListPage = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) => {
+
   const { page, ...queryParams } = searchParams;
 
   const p = page ? parseInt(page) : 1;

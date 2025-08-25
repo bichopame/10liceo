@@ -50,9 +50,7 @@ const TeacherForm = ({
 
   useEffect(() => {
     if (state.success) {
-      toast(
-        `! El profesor a sido ${type === "create" ? "creado" : "actualizado"} !`
-      );
+      toast(`! El profesor a sido ${type === "create" ? "creado" : "actualizado"} !`);
       setOpen(false);
       router.refresh();
     }
@@ -161,7 +159,7 @@ const TeacherForm = ({
             <option value="MALE">Hombre</option>
             <option value="FEMALE">Mujer</option>
           </select>
-          {errors?.sex?.message && (
+          {errors.sex?.message && (
             <p className="text-xs text-red-400">
               {errors.sex.message.toString()}
             </p>

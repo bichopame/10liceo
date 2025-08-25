@@ -57,11 +57,7 @@ const SingleStudentPage = async ({
                   {student.name + " " + student.surname}
                 </h1>
                 {role === "admin" && (
-                <FormContainer 
-                  table="student"
-                  type="update" 
-                  data={student}
-                  />
+                <FormContainer table="student" type="update" data={student}/>
                 )}
               </div>
               <p className="text-sm text-gray-500">
@@ -75,7 +71,7 @@ const SingleStudentPage = async ({
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
                   <Image src="/date.png" alt="" width={14} height={14} />
                   <span>
-                    {new Intl.DateTimeFormat("en-GB").format(student.birthday)}
+                    {new Intl.DateTimeFormat("es-CL").format(student.birthday)}
                   </span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
@@ -133,7 +129,7 @@ const SingleStudentPage = async ({
                 <h1 className="text-xl font-semibold">
                   {student.class._count.lessons}
                 </h1>
-                <span className="text-sm text-gray-400">Lesiones</span>
+                <span className="text-sm text-gray-400">Lecciones</span>
               </div>
             </div>
             {/*4TARJETA*/}

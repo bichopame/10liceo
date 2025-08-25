@@ -1,16 +1,24 @@
-import FormModal from "@/components/FormModal";
+import FormContainer from "@/components/FormContainer";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { currentUserId, role } from "@/lib/utils";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import { Announcement, Class, Prisma } from "@prisma/client";
 import Image from "next/image";
-
+import { auth } from "@clerk/nextjs/server";
 
 
 type AnnouncementList = Announcement & { class: Class };
+const AnnouncementListPage = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) => {
+  
+  const { userId, sessionClaims } = auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+  const currentUserId = userId;
 
 
 const columns =[
@@ -30,7 +38,7 @@ const columns =[
   ...(role === "admin"?[{
     header:"Acción",
     accessor:"action",
-   }]: []),
+  }]: []),
 ];
 
 
@@ -45,8 +53,8 @@ const columns =[
         <div className="flex items-center gap-2">
             {role === "admin" &&(
               <>
-                <FormModal table="announcement" type="update" data={item}/>
-                <FormModal table="announcement" type="delete" id={item.id}/>
+                <FormContainer table="announcement" type="update" data={item}/>
+                <FormContainer table="announcement" type="delete" id={item.id}/>
               </>  
             )}
         </div>
@@ -54,11 +62,6 @@ const columns =[
     </tr>
   );
 
-const AnnouncementListPage = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) => {
   const { page, ...queryParams } = searchParams;
 
   const p = page ? parseInt(page) : 1;
@@ -124,7 +127,7 @@ const AnnouncementListPage = async ({
               <Image src="/sort.png" alt="" width={14} height={14}/>
             </button>
             {role === "admin" && (
-              <FormModal table="announcement" type="create"/>
+              <FormContainer table="announcement" type="create"/>
             )}
           </div>
         </div>

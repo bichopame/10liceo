@@ -29,27 +29,27 @@ const currentUserId = userId;
 
 const columns = [
   {
-    header: "Subject Name",
+    header: "Asignatura",
     accessor: "name",
   },
   {
-    header: "Class",
+    header: "Clase",
     accessor: "class",
   },
   {
-    header: "Teacher",
+    header: "Profesor",
     accessor: "teacher",
     className: "hidden md:table-cell",
   },
   {
-    header: "Date",
+    header: "Fecha",
     accessor: "date",
     className: "hidden md:table-cell",
   },
   ...(role === "admin" || role === "teacher"
     ? [
         {
-          header: "Actions",
+          header: "Acción",
           accessor: "action",
         },
       ]
@@ -67,7 +67,7 @@ const renderRow = (item: ExamList) => (
       {item.lesson.teacher.name + " " + item.lesson.teacher.surname}
     </td>
     <td className="hidden md:table-cell">
-      {new Intl.DateTimeFormat("en-US").format(item.startTime)}
+      {new Intl.DateTimeFormat("es-CL").format(item.startTime)}
     </td>
     <td>
       <div className="flex items-center gap-2">

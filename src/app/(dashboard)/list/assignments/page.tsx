@@ -6,17 +6,26 @@ import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import { Assignment, Class, Prisma, Subject, Teacher } from "@prisma/client";
 import Image from "next/image";
-import { currentUserId, role } from "@/lib/utils";
-
+import { auth } from "@clerk/nextjs/server";
 
 
 type AssignmentList = Assignment & {
-  lesson:{
-    subject:Subject;
+  lesson: {
+    subject: Subject;
     class: Class;
     teacher: Teacher;
   };
 };
+
+const AssignmentListPage = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) => {
+
+  const { userId, sessionClaims } = auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+  const currentUserId = userId;
 
 const columns =[
   {
@@ -54,7 +63,7 @@ const columns =[
       
       <td className="flex items-center gap-4 p-4">{item.lesson.subject.name}</td>
       <td>{item.lesson.class.name}</td>
-      <td className="hidden md:table-cell">{item.lesson.teacher.name}</td>
+      <td className="hidden md:table-cell">{item.lesson.teacher.name + " " + item.lesson.teacher.surname}</td>
       <td className="hidden md:table-cell">{new Intl.DateTimeFormat("es-CL").format(item.dueDate)}</td>
       
       <td>
@@ -71,11 +80,6 @@ const columns =[
   );
 
 
-const AssignmentListPage = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) => {
   const { page, ...queryParams } = searchParams;
 
   const p = page ? parseInt(page) : 1;
